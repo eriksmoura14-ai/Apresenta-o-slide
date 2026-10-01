@@ -1,0 +1,24 @@
+name: Verificar interface Ecoarte
+on:
+  push:
+    paths:
+      - 'ecoarte/js/**'
+      - 'ecoarte/css/**'
+      - 'ecoarte/tests/interface.cjs'
+      - '.github/workflows/ecoarte-interface.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  interface:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check ecoarte/js/app.js && node --check ecoarte/js/animations.js
+      - run: npm install --no-save --package-lock=false playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node ecoarte/tests/interface.cjs

@@ -4,3 +4,14 @@
 
 /* Documentary photography: keep the artwork complete and readable. */
 .beuys{display:grid;grid-template-columns:43% 57%;gap:0}.real-beuys img,.real-muniz img,.goldsworthy .artist-image img,.krajcberg .artist-image img{object-fit:contain;background:#172b23}.real-muniz{background:#172b23}.krajcberg .artist-image{filter:none;opacity:1}.goldsworthy .artist-image{clip-path:none}.smithson .artist-image{border-radius:2px}.artist-image figcaption{left:0;right:0;bottom:0;line-height:1.6;font-size:10px;padding:12px;background:#172b23ed}.art-card img{filter:none}.real-muniz img{padding:0 0 42px}.full-art img{object-fit:cover}.beuys .artist-copy{padding-right:25px}@media(max-width:700px){.beuys{display:flex;flex-direction:column;align-items:stretch;gap:18px}.beuys .artist-copy{padding-right:0}.artist-image figcaption{font-size:8px;padding:8px}.real-muniz img{padding-bottom:30px}}
+
+/* An organic pointer; the system cursor remains a fallback until mouse movement. */
+#cursor{left:0;top:0;width:32px;height:32px;margin:-16px 0 0 -16px;border:0;background:none;opacity:0;transition:opacity .15s;mix-blend-mode:difference}
+#cursor::before{content:'';position:absolute;inset:3px;border:1px solid #fff;border-radius:50%;opacity:.8;transition:transform .25s,opacity .2s}
+#cursor::after{content:'';position:absolute;left:12px;top:10px;width:8px;height:12px;border-radius:90% 0 90% 0;background:#fff;transform:rotate(35deg);transition:transform .25s,border-radius .25s}
+#cursor.is-hover::before{transform:scale(1.65);opacity:1}
+#cursor.is-hover::after{transform:rotate(125deg) scale(1.2)}
+#cursor.is-pressed::before{transform:scale(.85)}
+#cursor.is-pressed::after{transform:rotate(35deg) scale(.65)}
+@media(hover:hover) and (pointer:fine){html.custom-cursor,html.custom-cursor body,html.custom-cursor button,html.custom-cursor a{cursor:none}html.custom-cursor select,html.custom-cursor input,html.custom-cursor textarea{cursor:auto}}
+@media(hover:none),(pointer:coarse),(forced-colors:active){#cursor{display:none}html.custom-cursor,html.custom-cursor body{cursor:auto}html.custom-cursor button,html.custom-cursor a{cursor:pointer}}

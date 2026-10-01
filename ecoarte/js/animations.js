@@ -54,15 +54,42 @@ window.EcoAnimations = (() => {
     slide.classList.add('active');
     enter(slide);
   }
-  document.addEventListener('pointermove', event => {
-    if (event.pointerType !== 'mouse' || reduced.matches) return;
+  const cursor = document.getElementById('cursor');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const root = document.documentElement;
+  function hideCursor() {
     cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const cursor = document.getElementById('cursor');
-      cursor.style.transform = `translate(${event.clientX}px,${event.clientY}px)`;
+    root.classList.remove('custom-cursor');
+    cursor.classList.remove('is-hover', 'is-pressed');
+    cursor.style.opacity = '0';
+  }
+  document.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'mouse' || !finePointer.matches) return;
+    const target = event.target instanceof Element ? event.target : null;
+    // Native select popups live outside the page and retain the system pointer.
+    if (target?.closest('select, input, textarea')) { hideCursor(); return; }
+    root.classList.add('custom-cursor');
+    cursor.style.opacity = '1';
+    cursor.classList.toggle('is-hover', !!target?.closest('button:not(:disabled), a[href]'));
+    cancelAnimationFrame(raf);
+    const x = event.clientX, y = event.clientY;
+    const update = () => {
+      cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      if (reduced.matches) return;
       const image = document.querySelector('.active.land img, .active.smithson .artist-image img');
-      if (image) image.style.translate = `${(event.clientX / innerWidth - .5) * 8}px ${(event.clientY / innerHeight - .5) * 5}px`;
-    });
+      if (image) image.style.translate = `${(x / innerWidth - .5) * 8}px ${(y / innerHeight - .5) * 5}px`;
+    };
+    if (reduced.matches) update();
+    else raf = requestAnimationFrame(update);
+  }, { passive: true });
+  document.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' && root.classList.contains('custom-cursor')) cursor.classList.add('is-pressed');
   });
+  document.addEventListener('pointerup', () => cursor.classList.remove('is-pressed'));
+  document.addEventListener('pointercancel', hideCursor);
+  document.addEventListener('mouseleave', hideCursor);
+  window.addEventListener('blur', hideCursor);
+  finePointer.addEventListener('change', hideCursor);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) hideCursor(); });
   return { prepare, enter, leave, restart, reduced };
 })();

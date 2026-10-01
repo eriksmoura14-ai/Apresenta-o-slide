@@ -33,6 +33,9 @@
       animations.leave(s); s.classList.remove('active'); s.setAttribute('aria-hidden', 'true'); s.inert = true;
     });
     if (previous !== next) previous.classList.add('departing');
+    const direction = nextIndex >= index ? 'forward' : 'backward';
+    next.dataset.nav = direction;
+    previous.dataset.exit = direction;
     index = nextIndex;
     next.classList.add('active'); next.setAttribute('aria-hidden', 'false'); next.inert = false;
     animations.enter(next);
@@ -58,6 +61,7 @@
     mode = nextMode;
     document.body.className = `${mode}-mode`;
     menu.hidden = true; experience.hidden = false;
+    index = 0;
     showSlide(0); stage.focus({ preventScroll: true });
   }
   function enterPresentationMode() { enterMode('presentation'); }
