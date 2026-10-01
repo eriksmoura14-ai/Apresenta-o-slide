@@ -1,0 +1,32 @@
+[
+  {
+    "name": "spiral-jetty",
+    "file": "spiral-jetty.png",
+    "caption": "Spiral Jetty — Robert Smithson, 1970",
+    "source": "https://commons.wikimedia.org/wiki/File:Spiral-jetty-from-rozel-point.png"
+  },
+  {
+    "name": "beuys",
+    "file": "beuys.jpg",
+    "caption": "7000 Carvalhos — Joseph Beuys · foto: Keichwa · CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kassel-beuys-7000-eichen-wegmann-v-o.jpg"
+  },
+  {
+    "name": "goldsworthy",
+    "file": "goldsworthy.jpg",
+    "caption": "Fold — Andy Goldsworthy",
+    "source": "https://commons.wikimedia.org/wiki/File:Andy_Goldsworthy-Fold1.jpg"
+  },
+  {
+    "name": "krajcberg",
+    "file": "krajcberg.jpg",
+    "caption": "Esculturas de Frans Krajcberg — espaço cultural em Curitiba",
+    "source": "https://commons.wikimedia.org/wiki/File:Espa_o_Cultural_Frans_Krajcberg_-_Curitiba_(40833438).jpg"
+  },
+  {
+    "name": "vik-muniz",
+    "file": "vik-muniz.jpg",
+    "caption": "Lixo Extraordinário — cartaz do documentário, 2010",
+    "source": "https://github.com/felipegangorra/gangorraflix/blob/2f4e2d3e1407515c959f1fc3caff83d29c43b69a/img/documentario/d1.jpg"
+  }
+]
