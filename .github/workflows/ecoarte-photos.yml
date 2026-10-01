@@ -1,0 +1,25 @@
+name: Importar fotografias reais da Ecoarte
+on:
+  push:
+    paths:
+      - '.github/workflows/ecoarte-photos.yml'
+      - 'ecoarte/scripts/import_photos.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar registros fotográficos locais
+        run: python3 ecoarte/scripts/import_photos.py
+      - name: Salvar imagens e atualização da apresentação
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ecoarte
+          git diff --cached --quiet && exit 0
+          git commit -m "Substitui desenhos por registros fotográficos das obras"
+          git push
